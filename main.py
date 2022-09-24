@@ -2,18 +2,18 @@ import requests
 from datetime import date, timedelta
 from twilio.rest import Client
 
-account_sid = "AC6d9e3db1d364e77d22ea20c16e70eabd"
-auth_token = "42efe16dab767c0e27441984782e6869"
+account_sid = '__Your_account_SID__'
+auth_token = '__Your_auth_token'
 
 date = date.today()
 before_yesterday = date - timedelta(days=3)
 yesterday = date - timedelta(days=2)
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
-STOCK_API_KEY = "KEEYZAYARBSYZMF7"
-NEWS_APIKEY = "3e729621d16e476c97f9d7a23a8862b6"
+STOCK_API_KEY = "Alphavantage API Key"
+NEWS_APIKEY = '__newsapi.com API Key'
 
-## STEP 1: Use https://www.alphavantage.co
+## Using https://www.alphavantage.co to get stock price
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News")
 parametres_stock = {
     "function": "TIME_SERIES_DAILY",
@@ -31,8 +31,8 @@ else:
 
 percent = abs((close_price - open_price) / close_price) * 100
 rounded = round(percent,2)
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
+## Using https://newsapi.org
+# Instead of printing all news from ("Get News"), getting the first 3 news pieces for the COMPANY_NAME.
 parametres_news = {
     "apiKey": NEWS_APIKEY,
     "q": "Tesla",
@@ -47,8 +47,8 @@ breif_2 = news_data["articles"][1]["description"]
 news_3 = news_data["articles"][2]["title"]
 breif_3 = news_data["articles"][2]["description"]
 
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number.
+##  Using https://www.twilio.com
+# Sending a seperate message with the percentage change and each article's title and description to your phone number.
 client = Client(account_sid, auth_token)
 
 message = client.messages \
@@ -65,7 +65,7 @@ message = client.messages \
 )
 print(message.status)
 
-# Optional: Format the SMS message like this:
+# This message is sent to our phone
 """
 TSLA: 🔺2%
 Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
